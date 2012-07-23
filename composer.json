@@ -1,0 +1,8 @@
+{
+  "autoload": {
+    "psr-0": {"Trackr": "src/"}
+  },
+  "require": {
+    "symfony/console": "2.1.*"
+  }
+}

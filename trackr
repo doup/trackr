@@ -1,0 +1,14 @@
+#!/usr/bin/php
+<?php
+require_once 'vendor/autoload.php';
+
+use Symfony\Component\Console\Application;
+
+date_default_timezone_set('Europe/Madrid');
+
+// CLI
+$app = new Application();
+$app->add(new Trackr\Command\Tick('tick'));
+$app->add(new Trackr\Command\Timetable('timetable'));
+$app->add(new Trackr\Command\Stats('stats'));
+$app->run();

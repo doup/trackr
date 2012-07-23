@@ -20,7 +20,7 @@ Note that you must change **myUser** to your actual user. If you prefer to track
 
     */5 * * * * /path/to/trackr tick myUser --size 5
     
-When the system is up and running you can see some statistics with this commands:
+When the system is up and running you can see some statistics with these commands:
 
     $ ./trackr stats
     $ ./trackr timetable

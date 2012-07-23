@@ -22,7 +22,6 @@ class Timetable extends Console\Command\Command
       
       for ($j = 0; $j < 6; $j++) {
         $table[$i][$j] = array(
-          'days'    => array(),
           'total'   => 0,
           'average' => 0,
         );
@@ -38,20 +37,16 @@ class Timetable extends Console\Command\Command
       foreach ($data as $time) {        
         $range = floor((+$time) / 400);
         $table[$wday][$range]['total']++;
-        
-        if (!in_array($date, $table[$wday][$range]['days'])) {
-          $table[$wday][$range]['days'][] = $date;
-        }
       } 
       
       $table[$wday]['days']++;
     }
     
-    // Average: each cell average it's calculated (cell total)/(day count which had some minutes in the cell)
-    for ($i = 1; $i < 8; $i++) {      
-      for ($j = 0; $j < 6; $j++) {
-        $days = count($table[$i][$j]['days']);
-        
+    // Average: each cell average it's calculated (cell total)/(weekday count with some activity)
+    for ($i = 1; $i < 8; $i++) {   
+      $days = $table[$i]['days'];
+         
+      for ($j = 0; $j < 6; $j++) {        
         if ($days != 0) {
           $average = $table[$i][$j]['total'] / $days;
         } else {

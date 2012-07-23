@@ -59,7 +59,6 @@ class Timetable extends Console\Command\Command
         }
         
         $table[$i][$j]['average'] = $average;
-        $table[$i][$j]['pretty']  = ceil(($average / 240) * 55);
         $table[$i][$j]['square']  = $this->getSquare(ceil(($average / 240) * 55));
       }
     }

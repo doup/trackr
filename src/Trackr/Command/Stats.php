@@ -99,7 +99,7 @@ class Stats extends Console\Command\Command
         str_pad($date, 12) . 
         "<{$tag}>" . 
           str_pad($this->formatMinutes($minutes), 9) . 
-          str_pad($this->getHoursBar($minutes), ceil($max / 60) * 4 + 2) . 
+          str_pad($this->getHoursBar($minutes), ceil($max / 60) * 3 + 2) . 
         "</{$tag}>" .
         "<{$tagAvg}>" . 
           str_pad($this->formatMinutes($minsAvg), 9) .
@@ -123,8 +123,8 @@ class Stats extends Console\Command\Command
   {
     $hours    = floor($minutes / 60);
     $minutes -= $hours * 60;
-    $quarters = floor($minutes / 15);
+    $thirds   = floor($minutes / 20);
     
-    return '|' . str_repeat('...|', $hours) . str_repeat('.', $quarters);
+    return '|' . str_repeat('..|', $hours) . str_repeat('.', $thirds);
   }
 }

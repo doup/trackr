@@ -9,14 +9,20 @@ class Stats extends Console\Command\Command
   {
     $this
       ->setDescription('Shows daily hours statistics')
-      ->addOption('threshold', null, Console\Input\InputOption::VALUE_REQUIRED, 'How many hours is too much?', 5)
+      ->addOption('lower-threshold', null, Console\Input\InputOption::VALUE_REQUIRED, 'How many hours is too much?', 6)
+      ->addOption('upper-threshold', null, Console\Input\InputOption::VALUE_REQUIRED, 'How many hours is too much?', 6.5)
     ;
   }
   
   protected function execute(Console\Input\InputInterface $input, Console\Output\OutputInterface $output)
   {    
-    $threshold = +$input->getOption('threshold');
-    $uptime    = array();
+    $lowerThreshold = +$input->getOption('lower-threshold');
+    $upperThreshold = +$input->getOption('upper-threshold');
+    $uptime         = array();
+    
+    if ($upperThreshold < $lowerThreshold) {
+      $upperThreshold = $lowerThreshold;
+    }
     
     foreach (glob(dirname($_SERVER['SCRIPT_FILENAME']) . '/data/*.json') as $file) {
       $date = basename($file, ".json");
@@ -79,8 +85,8 @@ class Stats extends Console\Command\Command
       // Daily
       $minutes = count($ticks);
       
-      if ($minutes > (60 * $threshold)) {
-        $tag = ($minutes > (60 * $threshold * 1.2)) ? 'toomuch' : 'soso';
+      if ($minutes > (60 * $lowerThreshold)) {
+        $tag = ($minutes > (60 * $upperThreshold)) ? 'toomuch' : 'soso';
       } else {
         $tag = 'info';
       }
@@ -88,8 +94,8 @@ class Stats extends Console\Command\Command
       // Average
       $minsAvg = round($average[$date]);
       
-      if ($minsAvg > (60 * $threshold)) {
-        $tagAvg = ($minsAvg > (60 * $threshold * 1.2)) ? 'toomuch' : 'soso';
+      if ($minsAvg > (60 * $lowerThreshold)) {
+        $tagAvg = ($minsAvg > (60 * $upperThreshold)) ? 'toomuch' : 'soso';
       } else {
         $tagAvg = 'info';
       }

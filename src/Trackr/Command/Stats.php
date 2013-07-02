@@ -134,15 +134,14 @@ class Stats extends Console\Command\Command
   
     protected function getHoursBar($minutes, $upperThreshold)
     {
-        $parts     = 3;
-        $hours     = floor($minutes / 60);
-        $minutes  -= $hours * 60;
-        $fractions = floor($minutes / (60 / $parts));
-        $bar       = '|' . str_repeat(str_repeat('.', $parts - 1) . '|', $hours) . str_repeat('.', $thirds);
-        $position  = ceil($upperThreshold * $parts);
-        $bar       = str_pad($bar, $position);
+        $hours    = floor($minutes / 60);
+        $minutes -= $hours * 60;
+        $thirds   = floor($minutes / 20);
+        $bar      = '|' . str_repeat('..|', $hours) . str_repeat('.', $thirds);
+        $position = ceil($upperThreshold * 3);
+        $bar      = str_pad($bar, $position);
 
-        return substr_replace($bar, '*', ceil($upperThreshold * $parts), 1);
+        return substr_replace($bar, '*', ceil($upperThreshold * 3), 1);
     }
 
     protected function getThresholds($date)

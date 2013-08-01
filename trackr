@@ -12,4 +12,5 @@ $app->add(new Trackr\Command\Stats('stats'));
 $app->add(new Trackr\Command\Thresholds('thresholds'));
 $app->add(new Trackr\Command\Tick('tick'));
 $app->add(new Trackr\Command\Timetable('timetable'));
+$app->add(new Trackr\Command\Server('server'));
 $app->run();

@@ -1,0 +1,23 @@
+{
+  "name": "doup-trackr",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Time tracker app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://doup@github.com/doup/trackr.git"
+  },
+  "author": "doup",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/doup/trackr/issues"
+  },
+  "homepage": "https://github.com/doup/trackr",
+  "dependencies": {
+    "bluebird": "^2.9.24"
+  }
+}

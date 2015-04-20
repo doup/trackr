@@ -1,3 +1,7 @@
+build
+cache
+dist
+
 # From GitHub
 # https://github.com/github/gitignore/blob/master/Node.gitignore
 # Logs

@@ -5,8 +5,12 @@ var exec = require('child_process').exec;
 
 function isActive(user) {
     return new Promise(function (resolve, reject) {
+        // OSX Check
         exec("stat -f '%u %Su' /dev/console", function (err, stdout, stdin) {
-            if (err) { reject(err); }
+            if (err) {
+                reject(err);
+            }
+
             resolve(stdout.replace(/^\s+|\s+$/g, '').indexOf(user) !== -1);
         });
     })

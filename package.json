@@ -1,23 +1,26 @@
 {
   "name": "doup-trackr",
-  "private": true,
   "version": "0.1.0",
-  "description": "Time tracker app",
+  "description": "Time tracker with few statistics made in io.js/Electron",
+  "private": true,
+  "author": "doup",
+  "license": "ISC",
+  "homepage": "https://github.com/doup/trackr",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "https://doup@github.com/doup/trackr.git"
   },
-  "author": "doup",
-  "license": "ISC",
   "bugs": {
     "url": "https://github.com/doup/trackr/issues"
   },
-  "homepage": "https://github.com/doup/trackr",
   "dependencies": {
-    "bluebird": "^2.9.24"
+    "bluebird": "^2.9.24",
+    "gulp": "git://github.com/gulpjs/gulp.git#4.0",
+    "gulp-atom": "^0.1.0",
+    "gulp-babel": "^5.1.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   }
 }

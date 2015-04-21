@@ -2,20 +2,43 @@
 <html>
     <head>
         <title>Hello World!</title>
+        <style type="text/css">
+            /* Disable rubber band scrolling */
+            html, body {
+                height: 100%;
+                overflow: hidden;
+            }
+        </style>
     </head>
     <body>
         <div style="
-            width: 80%;
-            height: 80%;
-            background-color: #fff;
-            border: 1px solid #eee;
-            margin: 20px auto;
-            box-shadow: 0 10px 20px 4px rgba(0, 0, 0, 0.2);
-            -webkit-user-select: none;
+            padding: 20px;
+            padding-top: 0px;
+            height: 315px;
         ">
-            <h1>Hello World!</h1>
-            We are using io.js <script>document.write(process.version)</script>
-            and Electron <script>document.write(process.versions['electron'])</script>.
+            <div style="
+                height: 295px;
+                padding: 20px;
+                padding-top: 0px;
+                background-color: #fff;
+                border: 1px solid #eee;
+                margin: 0 auto;
+                box-shadow: 0 10px 20px 4px rgba(0, 0, 0, 0.25);
+                -webkit-user-select: none;
+            ">
+                <h1>Hello World!</h1>
+                We are using io.js <script>document.write(process.version)</script>
+                and Electron <script>document.write(process.versions['electron'])</script>.
+                <script>
+                    var ipc = require('ipc');
+
+                    function quit() {
+                        //require('remote').require('app').quit();
+                        ipc.send('quit');
+                    }
+                </script>
+                <a href="#" onclick="return quit();">Close</a>
+            </div>
         </div>
     </body>
 </html>

@@ -47,13 +47,17 @@ class GUI {
             trayIcon = new Tray(__dirname +'/assets/tray-icon.png');
 
             trayIcon.on('clicked', () => {
-                // From: https://github.com/atom/electron/issues/752
-                var cursorPosition = screen.getCursorScreenPoint();
+                if (window.isVisible()) {
+                    window.hide();
+                } else {
+                    // From: https://github.com/atom/electron/issues/752
+                    var cursorPosition = screen.getCursorScreenPoint();
 
-                window.setPosition(cursorPosition.x - parseInt(WINDOW_WIDTH / 2), TRAY_ARROW_HEIGHT);
+                    window.setPosition(cursorPosition.x - parseInt(WINDOW_WIDTH / 2), TRAY_ARROW_HEIGHT);
 
-                window.show();
-                window.focus();
+                    window.show();
+                    window.focus();
+                }
             });
 
             window.on('blur', () => {

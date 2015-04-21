@@ -17,6 +17,7 @@
             height: 315px;
         ">
             <div style="
+                border-radius: 5px;
                 height: 295px;
                 padding: 20px;
                 padding-top: 0px;
@@ -36,8 +37,17 @@
                         //require('remote').require('app').quit();
                         ipc.send('quit');
                     }
+
+                    function notify(msg) {
+                        new Notification(msg);
+                    }
+
+                    notify('start!');
                 </script>
-                <a href="#" onclick="return quit();">Close</a>
+                <br/><br/>
+                <a href="#" onclick="return quit();">Quit</a>
+                <br/><br/>
+                <a href="#" onclick="return notify('hello!');">Notify</a>
             </div>
         </div>
     </body>

@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Hello World!</title>
+        <title>trackr</title>
         <style type="text/css">
             /* Disable rubber band scrolling */
             html, body {
                 height: 100%;
                 overflow: hidden;
+                font-family: "Helvetica Neue", Helvetica, sans-serif;
             }
         </style>
     </head>
@@ -27,28 +28,15 @@
                 box-shadow: 0 10px 20px 4px rgba(0, 0, 0, 0.25);
                 -webkit-user-select: none;
             ">
-                <h1>Hello World!</h1>
+                <h1>trackr</h1>
                 We are using io.js <script>document.write(process.version)</script>
                 and Electron <script>document.write(process.versions['electron'])</script>.
-                <script>
-                    var ipc = require('ipc');
-
-                    function quit() {
-                        //require('remote').require('app').quit();
-                        ipc.send('quit');
-                    }
-
-                    function notify(msg) {
-                        new Notification(msg);
-                    }
-
-                    notify('start!');
-                </script>
                 <br/><br/>
                 <a href="#" onclick="return quit();">Quit</a>
                 <br/><br/>
                 <a href="#" onclick="return notify('hello!');">Notify</a>
             </div>
         </div>
+        <script type="text/javascript" src="../lib/renderer.js"></script>
     </body>
 </html>

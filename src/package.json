@@ -1,5 +1,5 @@
 {
-  "name"    : "Trackr",
+  "name"    : "trackr",
   "version" : "0.1.0",
-  "main"    : "main.js"
+  "main"    : "lib/main.js"
 }

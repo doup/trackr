@@ -1,14 +1,13 @@
 import ipc from 'ipc';
 
-function quit() {
-    //require('remote').require('app').quit();
-    ipc.send('quit');
+function config() {
+    ipc.send('show-config-menu');
+}
+
+function notify(msg) {
+    new Notification(msg);
 }
 
 ipc.on('notification', (msg) => {
     new Notification(msg);
 });
-
-function notify(msg) {
-    new Notification(msg);
-}

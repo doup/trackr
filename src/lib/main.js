@@ -76,6 +76,23 @@ class GUI {
         ipc.on('quit', (event) => {
             app.quit();
         });
+
+        //
+        // Config Menu
+        //
+        var Menu = require('menu');
+        var MenuItem = require('menu-item');
+
+        var menu = new Menu();
+
+        menu.append(new MenuItem({ label: 'Notify: Kaixo?', click: () => window.webContents.send('notification', 'Kaixo! :-D') }));
+        menu.append(new MenuItem({ label: 'Disable notifications for 3 hours', type: 'checkbox', checked: false, click: () => window.webContents.send('notification', 'Notifications disabled for 3 hours') }));
+        menu.append(new MenuItem({ type: 'separator' }));
+        menu.append(new MenuItem({ label: 'Quit Trackr', click: () => app.quit() }));
+
+        ipc.on('show-config-menu', (event) => {
+            menu.popup(window);
+        });
     }
 }
 

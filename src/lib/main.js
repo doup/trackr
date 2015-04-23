@@ -10,7 +10,7 @@ import {getUserHome} from './utils';
 import {Trackr} from './trackr/trackr';
 
 const ROOT_DIR          = path.normalize(__dirname +'/../');
-const TRAY_ARROW_HEIGHT = 8; //px
+const TRAY_ARROW_HEIGHT = 10; //px
 const WINDOW_WIDTH      = 375;
 
 class GUI {
@@ -59,6 +59,9 @@ class GUI {
 
                     window.setPosition(cursorPosition.x - parseInt(WINDOW_WIDTH / 2), TRAY_ARROW_HEIGHT);
 
+                    // Force update
+                    window.webContents.send('update-uptime', trackr.uptime.getTodayUptime().minutes);
+
                     window.show();
                     window.focus();
                 }
@@ -77,6 +80,10 @@ class GUI {
             app.quit();
         });
 
+        trackr.uptime.on('update', uptime => {
+            window.webContents.send('update-uptime', uptime.minutes);
+        });
+
         //
         // Config Menu
         //
@@ -85,7 +92,7 @@ class GUI {
 
         var menu = new Menu();
 
-        menu.append(new MenuItem({ label: 'Notify: Kaixo?', click: () => window.webContents.send('notification', 'Kaixo! :-D') }));
+        menu.append(new MenuItem({ label: 'Notify: Uptime?', click: () => window.webContents.send('notification', 'Uptime: '+ trackr.uptime.getTodayUptime()) }));
         menu.append(new MenuItem({ label: 'Disable notifications for 3 hours', type: 'checkbox', checked: false, click: () => window.webContents.send('notification', 'Notifications disabled for 3 hours') }));
         menu.append(new MenuItem({ type: 'separator' }));
         menu.append(new MenuItem({ label: 'Quit Trackr', click: () => app.quit() }));

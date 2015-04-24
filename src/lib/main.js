@@ -33,13 +33,13 @@ class GUI {
             var screen = require('screen');
 
             window = new BrowserWindow({
-                width: WINDOW_WIDTH,
-                height: 335,
-                title: 'Hello World',
-                resizable: false,
-                frame: false,
+                title:       'Trackr',
+                width:       WINDOW_WIDTH,
+                height:      255,
+                resizable:   false,
+                frame:       false,
                 transparent: true,
-                show: false
+                show:        false
             });
 
             window.loadUrl('file://'+ ROOT_DIR +'/views/index.html');
@@ -80,7 +80,7 @@ class GUI {
             app.quit();
         });
 
-        trackr.uptime.on('update', uptime => {
+        this.trackr.uptime.on('update', uptime => {
             window.webContents.send('update-uptime', uptime.minutes);
         });
 
@@ -92,7 +92,7 @@ class GUI {
 
         var menu = new Menu();
 
-        menu.append(new MenuItem({ label: 'Notify: Uptime?', click: () => window.webContents.send('notification', 'Uptime: '+ trackr.uptime.getTodayUptime()) }));
+        menu.append(new MenuItem({ label: 'Edit thresholds…', click: () => window.webContents.send('notification', 'Threshold view appears') }));
         menu.append(new MenuItem({ label: 'Disable notifications for 3 hours', type: 'checkbox', checked: false, click: () => window.webContents.send('notification', 'Notifications disabled for 3 hours') }));
         menu.append(new MenuItem({ type: 'separator' }));
         menu.append(new MenuItem({ label: 'Quit Trackr', click: () => app.quit() }));

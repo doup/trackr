@@ -12,6 +12,9 @@
                 font-family: "Helvetica Neue", Helvetica, sans-serif;
             }
 
+            /* Disable blue halo */
+            input, textarea, select, a { outline: none; }
+
             h1 {
                 margin: 0 auto 10px;
                 text-align: center;
@@ -20,12 +23,12 @@
             .container {
                 padding: 20px;
                 padding-top: 0px;
-                height: 315px;
+                height: 255px;
             }
 
             .popover {
                 border-radius: 5px;
-                height: 250px;
+                height: 188px;
                 width: 250px;
                 padding: 10px;
                 background-color: #fff;
@@ -35,6 +38,7 @@
                 box-shadow: 0 10px 20px 4px rgba(0, 0, 0, 0.25);
                 -webkit-user-select: none;
                 position: relative;
+                cursor: default;
             }
 
             .popover:before {
@@ -62,13 +66,51 @@
                 position: absolute;
                 width: 0;
             }
+
+            .chart {
+                width: 100%;
+                height: 100px;
+                background-color: #f0f0f0;
+            }
+
+            .menu {
+                position: absolute;
+                bottom: 0;
+                height: 36px;
+                width: 100%;
+                margin-left: -10px;
+                border-bottom-right-radius: 5px;
+                border-bottom-left-radius: 5px;
+                border-top: 1px solid #bbbbbb;
+                text-align: right;
+                background: linear-gradient(to bottom, #ffffff 0%,#e8e8e8 100%); /* W3C */
+            }
+
+            .menu .config {
+                background: transparent url(../assets/cog.png) right center no-repeat;
+                display: inline-block;
+                height: 36px;
+                width: 36px;
+                margin-right: 10px;
+                text-decoration: none;
+                color: #8d8d8d;
+                cursor: default;
+                opacity: 0.7;
+            }
+
+            .menu .config:active {
+                opacity: 0.6;
+            }
         </style>
     </head>
     <body>
         <div class="container">
             <div class="popover">
-                <h1 id='time'></h1>
-                <a href="#" onclick="return config();">Config</a>
+                <h1 id='time'>&nbsp;</h1>
+                <div class="chart"></div>
+                <div class="menu">
+                    <a class="config" href="#" onclick="return config();">&nbsp;</a>
+                </div>
             </div>
         </div>
         <script type="text/javascript" src="../lib/renderer.js"></script>

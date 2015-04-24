@@ -23,23 +23,31 @@ export class Uptime extends EventEmitter {
             var isActive = stdout.replace(/^\s+|\s+$/g, '').indexOf(process.env.USER) !== -1;
 
             if (isActive) {
-                var date = this.getToday();
+                var data = this.getTodayData();
                 var time = getTimeCode();
 
-                if (!date.ticks) {
-                    date.ticks = [];
+                if (!data.ticks) {
+                    data.ticks = [];
                 }
 
-                if (date.ticks.indexOf(time) == -1) {
-                    date.ticks.push(time);
-                    this.emit('update', { date: getDate(), minutes: date.ticks.length });
+                if (data.ticks.indexOf(time) == -1) {
+                    data.ticks.push(time);
+                    this.emit('update', { date: getDate(), minutes: data.ticks.length });
                 }
             }
         });
     }
 
-    getToday() {
-        return getDB(`${this.dbPath}/uptime/${getDate()}.json`);
+    stopChecking() {
+        clearInterval(this.tickInterval);
+    }
+
+    getDateData(date) {
+        return getDB(`${this.dbPath}/uptime/${getDate(date)}.json`);
+    }
+
+    getTodayData() {
+        return this.getDateData(new Date());
     }
 
     /**
@@ -49,7 +57,7 @@ export class Uptime extends EventEmitter {
     getTodayUptime() {
         return {
             date: getDate(),
-            minutes: (this.getToday().ticks || []).length
+            minutes: (this.getTodayData().ticks || []).length
         };
     }
 
@@ -64,7 +72,28 @@ export class Uptime extends EventEmitter {
         delete this.thresholds[date];
     }
 
-    getStats() {
-        return {};
+    getStats(days = 30) {
+        var end   = new Date();
+        var start = new Date(end.getTime() - ((days - 1) * 24 * 60 * 60 * 1000));
+        var i     = new Date(start);
+        var stats = { start: getDate(start), end: getDate(end), days: days, data: [] };
+        var data;
+
+        while (i <= end) {
+            data = this.getDateData(i);
+
+            stats.data.push({
+                date: getDate(i),
+                minutes: (data.ticks || []).length,
+                threshold: {
+                    lower: 0,
+                    upper: 0
+                }
+            });
+
+            i = new Date(i.getTime() + ((1) * 24 * 60 * 60 * 1000));
+        }
+
+        return stats;
     }
 }

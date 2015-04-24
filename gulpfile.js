@@ -3,7 +3,7 @@ var babel = require('gulp-babel');
 var gulpAtom = require('gulp-atom');
 
 gulp.task('6to5', function () {
-    return gulp.src('src/**/*.js')
+    return gulp.src(['src/**/*.js', '!src/components/**/*'])
         .pipe(babel({
             comments: false
         }))
@@ -11,7 +11,7 @@ gulp.task('6to5', function () {
 });
 
 gulp.task('copy', function () {
-    return gulp.src(['src/**/*', '!src/**/*.js'])
+    return gulp.src(['src/**/*', '!src/lib/**/*.js'])
         .pipe(gulp.dest('dist'));
 });
 

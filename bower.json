@@ -1,0 +1,23 @@
+{
+  "name": "doup-trackr",
+  "main": "index.js",
+  "version": "0.1.0",
+  "homepage": "https://github.com/doup/trackr",
+  "authors": [
+    "doup <asier@illarra.com>"
+  ],
+  "description": "Time tracker with few statistics made in io.js/Electron",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "dimple": "~2.1.2",
+    "d3": "~3.5.5"
+  }
+}

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Time tracker with few statistics made in io.js/Electron",
   "private": true,
-  "author": "doup",
+  "author": "doup <asier@illarra.com>",
   "license": "ISC",
   "homepage": "https://github.com/doup/trackr",
   "main": "index.js",

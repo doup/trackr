@@ -60,7 +60,7 @@ class GUI {
                     window.setPosition(cursorPosition.x - parseInt(WINDOW_WIDTH / 2), TRAY_ARROW_HEIGHT);
 
                     // Force update
-                    window.webContents.send('update-uptime', trackr.uptime.getTodayUptime().minutes);
+                    window.webContents.send('update-uptime', this.trackr.uptime.getStats());
 
                     window.show();
                     window.focus();
@@ -74,6 +74,8 @@ class GUI {
             window.webContents.on('did-finish-load', () => {
                 window.webContents.send('notification', `Main Initialized. Hello ${process.env.USER}! - ${getUserHome()}`);
             });
+
+            //window.openDevTools({ detach: true });
         });
 
         ipc.on('quit', (event) => {
@@ -81,7 +83,7 @@ class GUI {
         });
 
         this.trackr.uptime.on('update', uptime => {
-            window.webContents.send('update-uptime', uptime.minutes);
+            window.webContents.send('update-uptime', this.trackr.uptime.getStats());
         });
 
         //

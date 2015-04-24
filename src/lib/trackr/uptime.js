@@ -72,23 +72,23 @@ export class Uptime extends EventEmitter {
         delete this.thresholds[date];
     }
 
-    getStats(days = 30) {
+    getStats(days = 40) {
         var end   = new Date();
         var start = new Date(end.getTime() - ((days - 1) * 24 * 60 * 60 * 1000));
         var i     = new Date(start);
         var stats = { start: getDate(start), end: getDate(end), days: days, data: [] };
-        var data;
+        var data, minutes;
 
         while (i <= end) {
-            data = this.getDateData(i);
+            data    = this.getDateData(i);
+            minutes = (data.ticks || []).length;
 
             stats.data.push({
                 date: getDate(i),
-                minutes: (data.ticks || []).length,
-                threshold: {
-                    lower: 0,
-                    upper: 0
-                }
+                hours: Math.round(minutes / 60 * 100) / 100,
+                minutes: minutes,
+                lower: 5,
+                upper: 7
             });
 
             i = new Date(i.getTime() + ((1) * 24 * 60 * 60 * 1000));

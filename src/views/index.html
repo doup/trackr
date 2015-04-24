@@ -2,6 +2,7 @@
 <html>
     <head>
         <title>trackr</title>
+        <meta charset="utf8"/>
         <style type="text/css">
             /* Disable rubber band scrolling */
             html, body {
@@ -70,7 +71,7 @@
             .chart {
                 width: 100%;
                 height: 100px;
-                background-color: #f0f0f0;
+                background-color: #fafafa;
             }
 
             .menu {
@@ -107,12 +108,14 @@
         <div class="container">
             <div class="popover">
                 <h1 id='time'>&nbsp;</h1>
-                <div class="chart"></div>
+                <div id="uptimeChart" class="chart"></div>
                 <div class="menu">
                     <a class="config" href="#" onclick="return config();">&nbsp;</a>
                 </div>
             </div>
         </div>
+        <script type="text/javascript" src="../components/d3/d3.js"></script>
+        <script type="text/javascript" src="../components/dimple/dist/dimple.v2.1.2.js"></script>
         <script type="text/javascript" src="../lib/renderer.js"></script>
     </body>
 </html>

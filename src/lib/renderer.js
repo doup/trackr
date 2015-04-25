@@ -55,7 +55,7 @@ function drawUptimeChart(container, data) {
 
     c.assignColor("Hours", "#b3d1dc", "#b3d1dc");
     c.assignColor("Lower", "#b4ff12", "#b4ff12", 0.6);
-    c.assignColor("Upper", "#ca8caf", "#ca8caf", 0.4);
+    c.assignColor("Upper", "#ef5975", "#ef5975", 0.3);
 
     c.setMargins(10, 10, 10, 10);
     c.draw();

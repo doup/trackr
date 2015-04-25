@@ -16,15 +16,26 @@
             /* Disable blue halo */
             input, textarea, select, a { outline: none; }
 
-            h1 {
+            .header {
                 margin: -10px -10px 10px -10px;
                 text-align: center;
-                line-height: 49px;
+                height: 49px;
                 background: linear-gradient(to bottom, #ffffff 0%,#e8e8e8 100%); /* W3C */
-                width: 270px;
                 border-top-right-radius: 5px;
                 border-top-left-radius: 5px;
-                opacity: 0.6;
+                width: 270px;
+                border-bottom: 1px solid #bbbbbb;
+            }
+
+            h1 {
+                margin: 0;
+                line-height: 49px;
+                background-color: #404040;
+                color: transparent;
+                text-shadow: 0px 1px 2px rgba(255, 255, 255, 0.4);
+                -webkit-background-clip: text;
+                -moz-background-clip: text;
+                background-clip: text;
             }
 
             .container {
@@ -76,11 +87,12 @@
 
             .chart {
                 width: 270px;
-                height: 120px;
+                height: 119px;
                 background-color: #fff;
                 margin-left: -10px;
                 margin-top: -10px;
-                border-top: 1px solid #bbbbbb;
+                border-top: 1px solid #fafafa;
+                border-bottom: 1px solid #fafafa;
             }
 
             .menu {
@@ -116,7 +128,9 @@
     <body>
         <div class="container">
             <div class="popover">
-                <h1 id='time'>&nbsp;</h1>
+                <div class="header">
+                    <h1 id='time'>&nbsp;</h1>
+                </div>
                 <div id="uptimeChart" class="chart"></div>
                 <div class="menu">
                     <a class="config" href="#" onclick="return config();">&nbsp;</a>

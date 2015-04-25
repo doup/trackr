@@ -32,7 +32,7 @@ ipc.on('update-uptime', stats => {
 
 function drawUptimeChart(container, data) {
     d3.select("svg").remove();
-    var svg = dimple.newSvg(container, 250, 100);
+    var svg = dimple.newSvg(container, 270, 120);
     var c = new dimple.chart(svg, data);
     var x = c.addCategoryAxis("x", "date");
     var y = c.addMeasureAxis("y", "hours");
@@ -48,15 +48,15 @@ function drawUptimeChart(container, data) {
     y.title = null;
     y.ticks = 5;
 
-    s.barGap = 0.0;
+    s.barGap = 0.3;
     s.getTooltipText = s2.getTooltipText = s3.getTooltipText = function (e) { return [formatHour(Math.round(e.yValue * 60))]; };
     s2.interpolation = s3.interpolation = 'step';
     s2.lineWeight = s3.lineWeight = 1.5;
 
-    c.assignColor("Hours", "#a0ced9", "#8cbeca");
-    c.assignColor("Lower", "#00ff00", "#00ff00", 0.5);
-    c.assignColor("Upper", "#ff0000", "#ff0000", 0.2);
+    c.assignColor("Hours", "#b3d1dc", "#b3d1dc");
+    c.assignColor("Lower", "#b4ff12", "#b4ff12", 0.6);
+    c.assignColor("Upper", "#ca8caf", "#ca8caf", 0.4);
 
-    c.setMargins(0,0,0,0);
+    c.setMargins(10, 10, 10, 10);
     c.draw();
 }

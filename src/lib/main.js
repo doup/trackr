@@ -35,7 +35,7 @@ class GUI {
             window = new BrowserWindow({
                 title:       'Trackr',
                 width:       WINDOW_WIDTH,
-                height:      255,
+                height:      180,
                 resizable:   false,
                 frame:       false,
                 transparent: true,

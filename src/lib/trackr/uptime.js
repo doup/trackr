@@ -94,6 +94,33 @@ export class Uptime extends EventEmitter {
             i = new Date(i.getTime() + ((1) * 24 * 60 * 60 * 1000));
         }
 
+        // Moving average 7 days
+        var count = 7;
+        var days  = [];
+
+        // Init
+        for (i = 0; i < count; i++) {
+            days.push(0);
+        }
+
+        function average(arr) {
+            var sum = 0;
+
+            for (var i = 0; i < arr.length; i++) {
+                sum += arr[i];
+            }
+
+            return sum / arr.length;
+        }
+
+        for (var i = 0; i < stats.data.length; i++) {
+            days.shift();
+            days.push(stats.data[i].minutes);
+
+            stats.data[i].averageMinutes = Math.round(average(days));
+            stats.data[i].averageHours   = Math.round(stats.data[i].averageMinutes / 60 * 100) / 100;
+        }
+
         return stats;
     }
 }

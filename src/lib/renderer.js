@@ -31,32 +31,44 @@ ipc.on('update-uptime', stats => {
 });
 
 function drawUptimeChart(container, data) {
+    // Remove all SVG elements (charts)
     d3.select("svg").remove();
-    var svg = dimple.newSvg(container, 270, 120);
-    var c = new dimple.chart(svg, data);
-    var x = c.addCategoryAxis("x", "date");
-    var y = c.addMeasureAxis("y", "hours");
-    var y2 = c.addMeasureAxis(y, "lower");
-    var y3 = c.addMeasureAxis(y, "upper");
-    var s = c.addSeries('Hours', dimple.plot.bar, [x,y]);
-    var s2 = c.addSeries('Lower', dimple.plot.line, [x,y2]);
-    var s3 = c.addSeries('Upper', dimple.plot.line, [x,y3]);
 
-    x.hidden = true;
-    y.hidden = true;
-    y.showGridlines = true;
-    y.title = null;
-    y.ticks = 5;
+    var svg   = dimple.newSvg(container, 270, 100);
+    var chart = new dimple.chart(svg, data);
 
-    s.barGap = 0.3;
-    s.getTooltipText = s2.getTooltipText = s3.getTooltipText = function (e) { return [formatHour(Math.round(e.yValue * 60))]; };
-    s2.interpolation = s3.interpolation = 'step';
-    s2.lineWeight = s3.lineWeight = 1.5;
+    var axisDate    = chart.addCategoryAxis("x", "date");
+    var axisHours   = chart.addMeasureAxis("y", "hours");
+    var axisAverage = chart.addMeasureAxis(axisHours, "averageHours");
+    var axisLower   = chart.addMeasureAxis(axisHours, "lower");
+    var axisUpper   = chart.addMeasureAxis(axisHours, "upper");
 
-    c.assignColor("Hours", "#b3d1dc", "#b3d1dc");
-    c.assignColor("Lower", "#b4ff12", "#b4ff12", 0.6);
-    c.assignColor("Upper", "#ef5975", "#ef5975", 0.3);
+    var hours   = chart.addSeries('Hours', dimple.plot.bar, [axisDate, axisHours]);
+    var average = chart.addSeries('Average', dimple.plot.line, [axisDate, axisAverage]);
+    var lower   = chart.addSeries('Lower', dimple.plot.line, [axisDate, axisLower]);
+    var upper   = chart.addSeries('Upper', dimple.plot.line, [axisDate, axisUpper]);
 
-    c.setMargins(10, 10, 10, 10);
-    c.draw();
+    axisDate.hidden         = true;
+    axisHours.hidden        = true;
+    axisHours.showGridlines = true;
+    axisHours.title         = null;
+    axisHours.ticks         = 5;
+
+    hours.barGap = 0.3;
+    hours.getTooltipText = average.getTooltipText = lower.getTooltipText = upper.getTooltipText = (e) => {
+        return [formatHour(Math.round(e.yValue * 60))];
+    };
+
+    average.lineWeight = 1.0;
+
+    lower.interpolation = upper.interpolation = 'step';
+    lower.lineWeight = upper.lineWeight = 1.5;
+
+    chart.assignColor("Hours", "#b3d1dc", "#b3d1dc");
+    chart.assignColor("Average", "#84abb9", "#84abb9");
+    chart.assignColor("Lower", "#b4ff12", "#b4ff12", 0.6);
+    chart.assignColor("Upper", "#ef5975", "#ef5975", 0.3);
+
+    chart.setMargins(10, 10, 10, 10);
+    chart.draw();
 }

@@ -59,6 +59,7 @@ function drawUptimeChart(container, data) {
         return [formatHour(Math.round(e.yValue * 60))];
     };
 
+    average.interpolation = 'cardinal';
     average.lineWeight = 1.0;
 
     lower.interpolation = upper.interpolation = 'step';

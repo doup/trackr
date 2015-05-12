@@ -62,10 +62,26 @@ export class Uptime extends EventEmitter {
     }
 
     getDateThreshold(date) {
-        return {
-            lower: 5,
-            upper: 7
-        };
+        var key, tdate, threshold;
+
+        for (key in this.thresholds) {
+            tdate = new Date(key);
+
+            if (date >= tdate) {
+                threshold = this.thresholds[key];
+            } else {
+                break;
+            }
+        }
+
+        if (!threshold) {
+            return {
+                lower: 0,
+                upper: 0
+            };
+        }
+
+        return threshold;
     }
 
     getTodayThreshold() {

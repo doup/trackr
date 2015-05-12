@@ -9,6 +9,8 @@ import Tray from 'tray';
 import {getUserHome} from './utils';
 import {Trackr} from './trackr/trackr';
 
+import quotes from './quotes.json';
+
 const ROOT_DIR          = path.normalize(__dirname +'/../');
 const TRAY_ARROW_HEIGHT = 10; //px
 const WINDOW_WIDTH      = 375;
@@ -83,7 +85,29 @@ class GUI {
         });
 
         this.trackr.uptime.on('update', uptime => {
+            var threshold = this.trackr.uptime.getTodayThreshold();
+            var overtime;
+
             window.webContents.send('update-uptime', this.trackr.uptime.getStats());
+
+            //
+            // Overtime Check
+            //
+            function getRandomQuote() {
+                return quotes[parseInt(Math.random() * quotes.length)]
+            }
+
+            if (uptime.minutes >= ((threshold.upper * 1.15) * 60)) {
+                overtime = ((uptime.minutes - (threshold.upper * 60)) % 1) == 0;
+            } else if (uptime.minutes >= (threshold.upper * 60)) {
+                overtime = ((uptime.minutes - (threshold.upper * 60)) % 5) == 0;
+            } else if (uptime.minutes >= (threshold.lower * 60)) {
+                overtime = ((uptime.minutes - (threshold.lower * 60)) % 15) == 0;
+            }
+
+            if (overtime) {
+                window.webContents.send('notification', getRandomQuote());
+            }
         });
 
         //

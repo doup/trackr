@@ -56,9 +56,20 @@ export class Uptime extends EventEmitter {
      */
     getTodayUptime() {
         return {
-            date: getDate(),
+            date:    getDate(),
             minutes: (this.getTodayData().ticks || []).length
         };
+    }
+
+    getDateThreshold(date) {
+        return {
+            lower: 5,
+            upper: 7
+        };
+    }
+
+    getTodayThreshold() {
+        return this.getDateThreshold(new Date());
     }
 
     setThreshold(date, lower, upper) {
@@ -77,18 +88,19 @@ export class Uptime extends EventEmitter {
         var start = new Date(end.getTime() - ((days - 1) * 24 * 60 * 60 * 1000));
         var i     = new Date(start);
         var stats = { start: getDate(start), end: getDate(end), days: days, data: [] };
-        var data, minutes;
+        var data, minutes, threshold;
 
         while (i <= end) {
-            data    = this.getDateData(i);
-            minutes = (data.ticks || []).length;
+            data      = this.getDateData(i);
+            minutes   = (data.ticks || []).length;
+            threshold = this.getDateThreshold(i);
 
             stats.data.push({
-                date: getDate(i),
-                hours: Math.round(minutes / 60 * 100) / 100,
+                date:    getDate(i),
+                hours:   Math.round(minutes / 60 * 100) / 100,
                 minutes: minutes,
-                lower: 5,
-                upper: 7
+                lower:   threshold.lower,
+                upper:   threshold.upper
             });
 
             i = new Date(i.getTime() + ((1) * 24 * 60 * 60 * 1000));

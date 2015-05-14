@@ -105,10 +105,23 @@ class GUI {
                 overtime = ((uptime.minutes - (threshold.lower * 60)) % 15) == 0;
             }
 
-            if (overtime) {
+            if (overtime && !notificationsDisabled) {
                 window.webContents.send('notification', getRandomQuote());
             }
         });
+
+        // Notifications toggle
+        var notificationsDisabled = false;
+
+        function toggleNotifications() {
+            notificationsDisabled = !notificationsDisabled;
+
+            if (notificationsDisabled) {
+                window.webContents.send('notification', 'Notifications disabled.');
+            } else {
+                window.webContents.send('notification', 'Notifications enabled.');
+            }
+        }
 
         //
         // Config Menu
@@ -119,7 +132,8 @@ class GUI {
         var menu = new Menu();
 
         menu.append(new MenuItem({ label: 'Edit thresholds…', click: () => window.webContents.send('notification', 'Threshold view appears') }));
-        menu.append(new MenuItem({ label: 'Disable notifications for 3 hours', type: 'checkbox', checked: false, click: () => window.webContents.send('notification', 'Notifications disabled for 3 hours') }));
+        menu.append(new MenuItem({ label: 'Disable notifications', type: 'checkbox', checked: false, click: toggleNotifications }));
+        //menu.append(new MenuItem({ label: 'Disable notifications for 2.5 hours', type: 'checkbox', checked: false, click: () => window.webContents.send('notification', 'Notifications disabled for 3 hours') }));
         menu.append(new MenuItem({ type: 'separator' }));
         menu.append(new MenuItem({ label: 'Quit Trackr', click: () => app.quit() }));
 

@@ -22,6 +22,7 @@ function formatHour(minutes) {
 }
 
 ipc.on('notification', msg => notify(msg));
+ipc.on('ping', () => (new Audio('../assets/ping.ogg')).play());
 
 ipc.on('update-uptime', stats => {
     var today = stats.data[stats.data.length - 1];

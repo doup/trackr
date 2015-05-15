@@ -107,6 +107,7 @@ class GUI {
 
             if (overtime && !notificationsDisabled) {
                 window.webContents.send('notification', getRandomQuote());
+                window.webContents.send('ping');
             }
         });
 

@@ -77,7 +77,7 @@ class GUI {
             });
 
             window.webContents.on('did-finish-load', () => {
-                window.webContents.send('notification', `Main Initialized. Hello ${process.env.USER}! - ${getUserHome()}`);
+                //window.webContents.send('notification', `Main Initialized. Hello ${process.env.USER}! - ${getUserHome()}`);
             });
         });
 

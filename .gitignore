@@ -1,7 +1,7 @@
 build
 cache
-dist
-src/components
+releases
+app/components
 
 # From GitHub
 # https://github.com/github/gitignore/blob/master/Node.gitignore

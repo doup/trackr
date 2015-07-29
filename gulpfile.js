@@ -47,35 +47,35 @@ function rebrand(appPath, ops, cb) {
 }
 
 gulp.task('clean', function (done) {
-    del(['build', 'dist'], done);
+    del(['releases', 'build'], done);
 });
 
-gulp.task('6to5', function () {
-    return gulp.src(['src/**/*.js', '!src/components/**/*'])
+gulp.task('transpile', function () {
+    return gulp.src(['app/**/*.js', '!app/components/**/*', '!app/node_modules/**/*'])
         .pipe(babel({
             comments: false
         }))
-        .pipe(gulp.dest('dist'));
+        .pipe(gulp.dest('build'));
 });
 
 gulp.task('copy', function () {
-    return gulp.src(['src/**/*', '!src/lib/**/*.js'])
-        .pipe(gulp.dest('dist'));
+    return gulp.src(['app/**/*', '!app/src/**/*.js'])
+        .pipe(gulp.dest('build'));
 });
 
 gulp.task('atom', function () {
     return gulpAtom({
-        srcPath:     'dist',
-        releasePath: 'build',
+        srcPath:     'build',
+        releasePath: 'releases',
         cachePath:   'cache',
-        version:     'v0.24.0',
+        version:     'v0.29.0',
         rebuild:     false,
         platforms:   ['darwin-x64']
     });
 });
 
 gulp.task('rebrand', function (done) {
-    rebrand('./build/v0.24.0/darwin-x64/Electron.app', {
+    rebrand('./releases/v0.29.0/darwin-x64/Electron.app', {
         name:       'Trackr',
         identifier: 'com.illarra.trackr'
     }, done);
@@ -83,7 +83,7 @@ gulp.task('rebrand', function (done) {
 
 gulp.task('build', gulp.series(
     'clean',
-    gulp.parallel('6to5', 'copy'),
+    gulp.parallel('transpile', 'copy'),
     'atom',
     'rebrand'
 ));

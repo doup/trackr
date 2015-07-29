@@ -1,7 +1,7 @@
 {
   "name": "trackr",
   "version": "0.1.0",
-  "main": "lib/main.js",
+  "main": "src/main.js",
   "dependencies": {
     "jsop": "^0.3.1",
     "mkdirp": "^0.5.1"

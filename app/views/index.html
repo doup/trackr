@@ -40,7 +40,7 @@
             }
 
             .container {
-                padding: 20px;
+                /* padding: 20px; */
                 padding-top: 0px;
                 height: 255px;
             }
@@ -140,6 +140,10 @@
         </div>
         <script type="text/javascript" src="../components/d3/d3.js"></script>
         <script type="text/javascript" src="../components/dimple/dist/dimple.v2.1.2.js"></script>
-        <script type="text/javascript" src="../lib/renderer.js"></script>
+        <script type="text/javascript" src="../src/renderer.js"></script>
+        <!-- build:remove -->
+        <!-- Connect to server process -->
+        <script>require('electron-connect').client.create()</script>
+        <!-- endbuild -->
     </body>
 </html>

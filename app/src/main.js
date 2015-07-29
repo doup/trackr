@@ -13,7 +13,10 @@ import quotes from './quotes.json';
 
 const ROOT_DIR          = path.normalize(__dirname +'/../');
 const TRAY_ARROW_HEIGHT = 10; //px
-const WINDOW_WIDTH      = 375;
+const WINDOW_WIDTH      = 325;
+
+// Debug utils
+require('electron-debug')();
 
 class GUI {
     constructor(trackr, app) {
@@ -76,8 +79,6 @@ class GUI {
             window.webContents.on('did-finish-load', () => {
                 window.webContents.send('notification', `Main Initialized. Hello ${process.env.USER}! - ${getUserHome()}`);
             });
-
-            //window.openDevTools({ detach: true });
         });
 
         ipc.on('quit', (event) => {
@@ -132,7 +133,7 @@ class GUI {
 
         var menu = new Menu();
 
-        menu.append(new MenuItem({ label: 'Edit thresholds…', click: () => window.webContents.send('notification', 'Threshold view appears') }));
+        //menu.append(new MenuItem({ label: 'Edit thresholds…', click: () => window.webContents.send('notification', 'Threshold view appears') }));
         menu.append(new MenuItem({ label: 'Disable notifications', type: 'checkbox', checked: false, click: toggleNotifications }));
         //menu.append(new MenuItem({ label: 'Disable notifications for 2.5 hours', type: 'checkbox', checked: false, click: () => window.webContents.send('notification', 'Notifications disabled for 3 hours') }));
         menu.append(new MenuItem({ type: 'separator' }));

@@ -6,7 +6,7 @@
   "author": "doup <asier@illarra.com>",
   "license": "ISC",
   "homepage": "https://github.com/doup/trackr",
-  "main": "index.js",
+  "main": "build/src/main.js",
   "repository": {
     "type": "git",
     "url": "https://doup@github.com/doup/trackr.git"
@@ -17,9 +17,12 @@
   "dependencies": {
     "bluebird": "^2.9.24",
     "del": "^1.1.1",
+    "electron-connect": "^0.2.1",
+    "electron-packager": "^5.0.1",
     "gulp": "git://github.com/gulpjs/gulp.git#4.0",
     "gulp-atom": "^0.1.0",
     "gulp-babel": "^5.1.0",
+    "gulp-useref": "^1.2.0",
     "plist": "^1.1.0"
   },
   "scripts": {

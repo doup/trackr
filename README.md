@@ -40,7 +40,7 @@ Build a release:
 
 Update the icon:
 
-1. Update icon-1024.png
+1. Update `icon-1024.png`
 2. Run `create-icns.sh`
 3. Build `gulp build`
 

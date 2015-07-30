@@ -1,5 +1,7 @@
 # Trackr
 
+<a href="https://github.com/doup/trackr/releases"><img src="https://img.shields.io/github/release/doup/trackr.svg"></a>
+
 ![](design/screenshoot.png)
 
 Trackr is a small tray application for OSX which tracks the uptime of the user and shows some simple statistcis. It's written on top of [Electron](http://electron.atom.io) using web technologies.
